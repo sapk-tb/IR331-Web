@@ -29,12 +29,16 @@
         <div class="container">
             <%
             String p = request.getParameter("p");
-            if (p == "" || p == "index") {
-            %><jsp:include page="pages/index.jsp" /><%
-            } else if (p == "service") {
-               %><jsp:include page="pages/service.jsp" /><%
+            if (p == null || p.equals("") || p.equals("index")) {
+                %><jsp:include page="pages/index.jsp" /><%
+            } else if (p.equals("contrat")) {
+                %><jsp:include page="pages/contrat.jsp" /><%
+            } else if (p.equals("service")) {
+                %><jsp:include page="pages/service.jsp" /><%
+            } else if (p.equals("employe")) {
+                %><jsp:include page="pages/employe.jsp" /><%
             } else {
-               %><jsp:include page="pages/404.jsp" /><%  
+                %><jsp:include page="pages/404.jsp" /><%  
             }
             %>
         </div>
