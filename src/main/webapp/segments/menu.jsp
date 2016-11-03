@@ -6,7 +6,6 @@
         <li><a href="">Liste des Services</a></li>
     </ul>
 </li>
-
 <li class="dropdown">
     <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="employe">Employés <span class="caret"></span></a>
     <ul class="dropdown-menu" aria-labelledby="employe">
@@ -14,7 +13,6 @@
         <li><a href="">Liste des Employés</a></li>
     </ul>
 </li>
-
 <li class="dropdown">
     <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="contrat">Contrats <span class="caret"></span></a>
     <ul class="dropdown-menu" aria-labelledby="contrat">
