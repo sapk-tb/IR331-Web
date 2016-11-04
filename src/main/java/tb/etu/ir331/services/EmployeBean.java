@@ -25,12 +25,12 @@ public class EmployeBean implements IEmployeBean {
     private ServiceDAO serviceDAO;
 
     @Override
-    public void create(String prenom, String nom) {
+    public void create(String prenom, String nom) throws Exception{
         this.create(prenom, nom, null);
     }
 
     @Override
-    public void create(String prenom, String nom, Service service) {
+    public void create(String prenom, String nom, Service service) throws Exception{
         Employe e = new Employe();
         e.setPrénom(prenom);
         e.setNom(nom);

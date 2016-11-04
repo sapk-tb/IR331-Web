@@ -48,7 +48,7 @@ public class Employe implements Serializable {
     }
 
     public void setPrénom(String prénom) {
-        this.prénom = prénom;
+        this.prénom = prénom.trim();
     }
 
     public Service getService() {
@@ -92,6 +92,6 @@ public class Employe implements Serializable {
     }
 
     public void setNom(String nom) {
-        this.nom = nom;
+        this.nom = nom.trim();
     }
 }

@@ -156,15 +156,24 @@
             try {
                 s = serviceBean.getService(new Integer(request.getParameter("service")));
                 employeBean.create(request.getParameter("prenom"), request.getParameter("nom"), s); //Create with service
+                %> <div class="alert alert-success" role="alert"><strong>OK !</strong></div> <script> window.setTimeout('window.location = "?p=employe"', 2000);</script> <%
             } catch (Exception ex) { //Alert and block
                 %> 
                 <br><div class="alert alert-warning" role="alert"><strong>NOK !</strong> -> Service to attach (<%=request.getParameter("service")%>) not found Details : <%=ex.getMessage()%></div>
                 <%
             }
         } else {
-            employeBean.create(request.getParameter("prenom"), request.getParameter("nom")); //Create without Service defined
+            try {
+                employeBean.create(request.getParameter("prenom"), request.getParameter("nom")); //Create without Service defined
+                %> <div class="alert alert-success" role="alert"><strong>OK !</strong></div> <script> window.setTimeout('window.location = "?p=employe"', 2000);</script> <%
+            } catch (Exception ex) { //Alert and block
+                %> 
+                <br><div class="alert alert-warning" role="alert"><strong>NOK !</strong> -> Details : <%=ex.getMessage()%></div>
+                <%
+            } 
+
         }
-    %> <div class="alert alert-success" role="alert"><strong>OK !</strong></div> <script> window.setTimeout('window.location = "?p=employe"', 2000);</script> <%    } else {
+    } else {
 //List employes
     %> <h3> Employe list :</h3> <%
 //*

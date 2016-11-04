@@ -11,8 +11,8 @@ import tb.etu.ir331.entities.Service;
 @Remote
 public interface IEmployeBean {
 
-    void create(String prenom, String nom);
-    void create(String prenom, String nom, Service service);
+    void create(String prenom, String nom) throws Exception;
+    void create(String prenom, String nom, Service service) throws Exception;
     void attach(int idEmp, int IdServ) throws Exception;
 
     public Employe getEmploye(int id) throws Exception;
