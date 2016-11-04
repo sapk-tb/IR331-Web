@@ -33,7 +33,7 @@
             <div class="form-group">
                 <label for="responsable" class="col-lg-2 control-label">Responsable</label>
                 <div class="col-lg-10">
-                    <select class="form-control" id="responsable" name="responsable">
+                    <select class="form-control" id="responsable" name="responsable" disabled="disabled">
                         <option value="-1">Aucun</option>
                         <% for (Employe e : employeBean.list()) {%>
                         <option value="<%=e.getId()%>"><%=e.getPrénom()%> <%=e.getNom()%></option>
@@ -88,7 +88,7 @@
                 <label for="responsable" class="col-lg-2 control-label">Responsable</label>
                 <div class="col-lg-10">
                     <select class="form-control" id="responsable" name="responsable">
-                        <% for (Employe e : employeBean.list()) {%>
+                        <% for (Employe e : serviceBean.getEmpList(s)) {%>
                         <option value="<%=e.getId()%>"><%=e.getPrénom()%> <%=e.getNom()%></option>
                         <% } %>
                     </select>
@@ -141,8 +141,15 @@
     %>
     <p>Service : <%=s.getNom()%></p>
     <p>Responsable : <% if (s.getResponsable() != null) {%><%=s.getResponsable().getPrénom()%> <%=s.getResponsable().getNom()%><%}%> <a class="btn  btn-default btn-sm" href="?p=service&a=setResp&id=<%=s.getId()%>"> Change </a></p>
-
-    <%
+        <table class="table table-striped table-hover">
+          <thead><tr><th>ID</th><th>Prénom</th><th>Nom</th></tr></thead>
+          <tbody>
+        <% for (Employe e : serviceBean.getEmpList(s)) {%>
+        <tr><td><a href="?p=employe&a=view&id=<%=e.getId()%>"><%=e.getId()%></a></td><td><%=e.getPrénom()%></td><td><%=e.getNom()%><td></tr>
+        <% } %>
+            </tbody>
+        </table>
+        <%
         }
     } else if (a != null && a.equals("add_confirm")) {
         //TODO checkup var 

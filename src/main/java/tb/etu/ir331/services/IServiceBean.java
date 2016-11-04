@@ -22,6 +22,7 @@ public interface IServiceBean {
 
     public List<Service> list();
     
+    public List<Employe> getEmpList(Service s) throws Exception;
     public int getNbEmp(Service s) throws Exception;
     
 

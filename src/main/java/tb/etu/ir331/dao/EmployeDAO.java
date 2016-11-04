@@ -37,7 +37,8 @@ public class EmployeDAO {
         System.out.println("EmployeDAO.findByServiceId(" + Sid + ")");
         List<Employe> l = new ArrayList<>();
         for (Employe employe : EmployeList) {
-            if(Objects.equals(employe.getId(), Sid)){
+            if(employe.getService() != null && Objects.equals(employe.getService().getId(), Sid)){
+                System.out.println("EmployeDAO.findByServiceId(" + Sid + ") found : "+employe.getId());
                 l.add(employe);
             }
         }

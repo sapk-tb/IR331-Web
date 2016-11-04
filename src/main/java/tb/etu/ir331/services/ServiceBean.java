@@ -52,13 +52,27 @@ public class ServiceBean implements IServiceBean {
     public void setResp(int IdServ, int idEmp) throws Exception {
         Service s = serviceDAO.findById(IdServ);
         Employe e = employeDAO.findById(idEmp);
-        
-        //TODO verify if employe is in service 
-        
+
+        //Verify if employe is in service to become chief 
+        if (e.getService() == null || !Objects.equals(e.getService().getId(), s.getId())) {
+            throw new Exception("Employe is not in this service staff !");
+        }
+        /* Not necessary since user shuold not be in a another service
+        //Verifiy that he is not chief of another service 
+        for (Service tmp : serviceDAO.findAll()) {
+            if(tmp.getResponsable() != null && Objects.equals(e.getId(), tmp.getResponsable().getId())){
+               throw new Exception("Employe is already chief of the service : "+tmp.getNom());
+            }
+        }
+        */
         s.setResponsable(e);
         serviceDAO.update(s);
     }
 
+    @Override
+    public List<Employe> getEmpList(Service s) throws Exception {
+        return employeDAO.findByServiceId(s.getId());
+    }
     @Override
     public int getNbEmp(Service s) throws Exception {
         return employeDAO.findByServiceId(s.getId()).size();

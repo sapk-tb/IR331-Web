@@ -52,7 +52,7 @@ public class EmployeBean implements IEmployeBean {
     public void attach(int idEmp, int IdServ) throws Exception {
         Employe e = employeDAO.findById(idEmp);
         Service s = serviceDAO.findById(IdServ);
-
+        //TODO check that he is not a chief of another service
         if (e.getService() != null && Objects.equals(e.getService().getId(), s.getId())) {
             throw new Exception("Employe is already in this service !");
         }
