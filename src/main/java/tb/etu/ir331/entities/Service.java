@@ -50,7 +50,7 @@ public class Service implements Serializable {
     }
 
     public void setNom(String nom) {
-        this.nom = nom;
+        this.nom = nom.trim();
     }
 
     public String getEtat() {

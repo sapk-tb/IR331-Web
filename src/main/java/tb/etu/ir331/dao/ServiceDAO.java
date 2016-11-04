@@ -22,7 +22,7 @@ public class ServiceDAO {
      */
     @PersistenceContext
     EntityManager entityManager;
-    
+
     List<Service> ServiceList = new ArrayList<>(); //Mock of DB //TODO unMock
 
     /**
@@ -31,29 +31,37 @@ public class ServiceDAO {
     public ServiceDAO() {
         // TODO Auto-generated constructor stub
     }
-    
+
     public Service findById(Integer id) throws Exception {
         System.out.println("ServiceDAO.findById(" + id + ")");
-        
+
         try {
             return ServiceList.get(id);//TODO unMock
         } catch (Exception e) {
-            throw new Exception("Service ID not Found, "+e.getMessage());
+            throw new Exception("Service ID not Found, " + e.getMessage());
         }
         //return null; //entityManager.find(Service.class, id);
     }
-    
+
     public List<Service> findAll() {
         return ServiceList; //TODO UnMock
     }
-    
-    public Service update(Service s) {
+
+    public void validate(Service s) throws Exception {
+        if (s.getNom() == null || "".equals(s.getNom().trim())) {
+            throw new Exception("Service name is empty !");
+        }
+    }
+
+    public Service update(Service s) throws Exception {
+        validate(s);
         //entityManager.persist(s); //Use mock for a start
         ServiceList.set((int) (long) s.getId(), s); //TODO unMock
         return s;
     }
-    
+
     public Service persist(Service s) throws Exception {
+        validate(s);
         //entityManager.persist(s); //Use mock for a start
         s.setId(ServiceList.size()); //TODO unMock
         for (Service service : ServiceList) {
@@ -64,5 +72,5 @@ public class ServiceDAO {
         ServiceList.add(s);
         return s;
     }
-    
+
 }
