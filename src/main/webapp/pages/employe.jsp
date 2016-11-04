@@ -61,9 +61,9 @@
         try {
             e = employeBean.getEmploye(new Integer(request.getParameter("id")));
         } catch (Exception ex) {
-    %> 
-    <br><div class="alert alert-danger" role="alert"><strong>NOK !</strong> -> Details : <%=ex.getMessage()%></div>
-    <%
+            %> 
+            <br><div class="alert alert-danger" role="alert"><strong>NOK !</strong> -> Details : <%=ex.getMessage()%></div>
+            <%
         }
         if (e == null) {
     %>
@@ -115,9 +115,9 @@
         try {
             e = employeBean.getEmploye(new Integer(request.getParameter("id")));
         } catch (Exception ex) {
-    %> 
-    <br><div class="alert alert-danger" role="alert"><strong>NOK !</strong> -> Details : <%=ex.getMessage()%></div>
-    <%
+            %> 
+            <br><div class="alert alert-danger" role="alert"><strong>NOK !</strong> -> Details : <%=ex.getMessage()%></div>
+            <%
         }
         if (e == null) {
     %>
@@ -144,7 +144,7 @@
             }
         } else {
                 %> 
-                <br><div class="alert alert-warning" role="alert"><strong>NOK !</strong> -> Service to attach not given !%></div>
+                <br><div class="alert alert-warning" role="alert"><strong>NOK !</strong> -> Service to attach not given !</div>
                 <%        }
                 %><script> window.setTimeout('window.location = "?p=employe"', 2000);</script> <% 
 

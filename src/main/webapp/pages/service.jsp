@@ -119,7 +119,7 @@
             }
         } else {
                 %> 
-                <br><div class="alert alert-warning" role="alert"><strong>NOK !</strong> -> Employe to attach not given !%></div>
+                <br><div class="alert alert-warning" role="alert"><strong>NOK !</strong> -> Employe to attach not given !</div>
                 <%        }
                 %><script> window.setTimeout('window.location = "?p=service"', 2000);</script> <% 
     } else if (a != null && a.equals("view")) {

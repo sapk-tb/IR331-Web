@@ -39,7 +39,7 @@ public class EmployeBean implements IEmployeBean {
     }
 
     @Override
-    public Employe getEmploye(int id)  throws Exception {
+    public Employe getEmploye(int id) throws Exception {
         return employeDAO.findById(id);
     }
 
@@ -52,8 +52,8 @@ public class EmployeBean implements IEmployeBean {
     public void attach(int idEmp, int IdServ) throws Exception {
         Employe e = employeDAO.findById(idEmp);
         Service s = serviceDAO.findById(IdServ);
-        
-        if(Objects.equals(e.getService().getId(), s.getId())){
+
+        if (e.getService() != null && Objects.equals(e.getService().getId(), s.getId())) {
             throw new Exception("Employe is already in this service !");
         }
         e.setService(s);
