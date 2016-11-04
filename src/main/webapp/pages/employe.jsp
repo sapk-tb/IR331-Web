@@ -74,7 +74,7 @@
     %>
     <br>
     <form class="form-horizontal" action="index.jsp?p=employe&a=attach_confirm" method="POST" >
-        <input name="id" id="etat" value="<%=e.getId()%>" type="hidden">
+        <input name="id" id="id" value="<%=e.getId()%>" type="hidden">
         <fieldset>
             <div class="form-group">
                 <label for="prenom" class="col-lg-2 control-label">Prénom</label>

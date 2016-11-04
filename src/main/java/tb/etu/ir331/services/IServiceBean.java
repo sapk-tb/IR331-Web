@@ -13,10 +13,16 @@ import tb.etu.ir331.entities.Service;
 public interface IServiceBean {
 
     void create(String name, String etat) throws Exception;
+
     void create(String name, String etat, Employe responsable) throws Exception;
 
-    public Service getService(int id) throws Exception ;
+    void setResp(int IdServ, int idEmp) throws Exception;
+
+    public Service getService(int id) throws Exception;
 
     public List<Service> list();
+    
+    public int getNbEmp(Service s) throws Exception;
+    
 
 }

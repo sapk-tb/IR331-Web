@@ -2,6 +2,7 @@ package tb.etu.ir331.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -32,6 +33,17 @@ public class EmployeDAO {
         // TODO Auto-generated constructor stub
     }
 
+    public List<Employe> findByServiceId(Long Sid) throws Exception { //TODO unMock
+        System.out.println("EmployeDAO.findByServiceId(" + Sid + ")");
+        List<Employe> l = new ArrayList<>();
+        for (Employe employe : EmployeList) {
+            if(Objects.equals(employe.getId(), Sid)){
+                l.add(employe);
+            }
+        }
+        return l;
+    }
+    
     public Employe findById(Integer id) throws Exception {
         System.out.println("EmployeDAO.findById(" + id + ")");
         try {
