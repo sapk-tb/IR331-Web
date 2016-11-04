@@ -5,6 +5,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Solution de RH</title>
         <link rel="stylesheet" href="res/bootstrap.flatly.min.css">
+        <link rel="icon" href="res/icon.svg">
     </head>
     <body style="padding-top: 50px;">
 
@@ -28,7 +29,8 @@
 
         <div class="container">
             <%
-            String p = request.getParameter("p");
+            String p = request.getParameter("p");            
+
             if (p == null || p.equals("") || p.equals("index")) {
                 %><jsp:include page="pages/index.jsp" /><%
             } else if (p.equals("contrat")) {

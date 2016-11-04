@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<jpa:entity-mappings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:java="http://jcp.org/en/jsr/detail?id=270" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:jpa="http://java.sun.com/xml/ns/persistence/orm" v="1.5.4" thm="PMacColorScheme" xs="false" id="_14751365434731" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_1.xsd">
+    <jpa:entity xre="false" sm="false" abs="false" class="Employé" visibile="true" minimized="false" rootElement="_14751365434731" id="_1475136577189">
+        <jpa:attributes>
+            <basic attribute-type="String" visibile="true" name="etat" id="_14751366733387"/>
+            <basic attribute-type="String" visibile="true" name="details" id="_14751366783278"/>
+            <basic attribute-type="String" visibile="true" name="nom" id="_147513674134113"/>
+            <basic attribute-type="String" visibile="true" name="prénom" id="_147513676360614"/>
+            <many-to-one primaryKey="false" connected-entity-id="_1475136693581" visibile="true" name="service" id="_147513847400365"/>
+            <one-to-one optional="true" primaryKey="false" connected-entity-id="_1475136795047" connected-attribute-id="_147513830324423" visibile="true" name="contrat" id="_147513830324624"/>
+            <jpa:id attribute-type="Long" visibile="true" name="id" id="_14751365772482">
+                <jpa:generated-value/>
+            </jpa:id>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity xre="false" sm="false" abs="false" class="Service" visibile="true" minimized="false" rootElement="_14751365434731" id="_1475136693581">
+        <jpa:attributes>
+            <basic attribute-type="String" visibile="true" name="nom" id="_147513670973111"/>
+            <basic attribute-type="String" visibile="true" name="etat" id="_147513673133812"/>
+            <one-to-one own="true" optional="true" primaryKey="false" connected-entity-id="_1475136577189" visibile="true" name="responsable" id="_147513827705322"/>
+            <jpa:id attribute-type="Long" visibile="true" name="id" id="_14751366935829">
+                <jpa:generated-value/>
+            </jpa:id>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:entity xre="false" sm="false" abs="false" class="Contrat" visibile="true" minimized="false" rootElement="_14751365434731" id="_1475136795047">
+        <jpa:attributes>
+            <basic attribute-type="String" visibile="true" name="etat" id="_147513693596317"/>
+            <basic attribute-type="String" visibile="true" name="type" id="_147513694439718"/>
+            <basic attribute-type="String" visibile="true" name="date" id="_147513695247019"/>
+            <one-to-one own="true" optional="true" primaryKey="false" connected-entity-id="_1475136577189" connected-attribute-id="_147513830324624" visibile="true" name="employé" id="_147513830324423"/>
+            <jpa:id attribute-type="Long" visibile="true" name="id" id="_147513679504715">
+                <jpa:generated-value/>
+            </jpa:id>
+        </jpa:attributes>
+    </jpa:entity>
+    <jpa:c/>
+    <jpa:diagram>
+        <plane elementRef="_14751365434731">
+            <shape elementRef="_1475136577189">
+                <Bounds x="131.0" y="84.0" width="154.0" height="201.0"/>
+            </shape>
+            <shape elementRef="_1475136693581">
+                <Bounds x="285.0" y="326.0" width="146.0" height="141.0"/>
+            </shape>
+            <shape elementRef="_1475136795047">
+                <Bounds x="-116.0" y="104.0" width="148.0" height="161.0"/>
+            </shape>
+        </plane>
+    </jpa:diagram>
+</jpa:entity-mappings>
