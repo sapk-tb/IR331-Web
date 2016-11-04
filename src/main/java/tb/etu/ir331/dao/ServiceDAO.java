@@ -1,5 +1,9 @@
 package tb.etu.ir331.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
 import tb.etu.ir331.entities.Service;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -7,7 +11,10 @@ import javax.persistence.PersistenceContext;
 /**
  *
  * @author sapk
+ *
  */
+@Stateless
+@LocalBean
 public class ServiceDAO {
 
     /**
@@ -15,6 +22,8 @@ public class ServiceDAO {
      */
     @PersistenceContext
     EntityManager entityManager;
+    
+    List<Service> ServiceList = new ArrayList<>(); //Mock of DB //TODO unMock
 
     /**
      * Default constructor.
@@ -22,14 +31,38 @@ public class ServiceDAO {
     public ServiceDAO() {
         // TODO Auto-generated constructor stub
     }
-
-    public Service findById(Integer id) {
-        return null; //entityManager.find(Service.class, id);
+    
+    public Service findById(Integer id) throws Exception {
+        System.out.println("ServiceDAO.findById(" + id + ")");
+        
+        try {
+            return ServiceList.get(id);//TODO unMock
+        } catch (Exception e) {
+            throw new Exception("Service ID not Found, "+e.getMessage());
+        }
+        //return null; //entityManager.find(Service.class, id);
     }
-
-    public Service persist(Service s) {
-        //entityManager.persist(s);
+    
+    public List<Service> findAll() {
+        return ServiceList; //TODO UnMock
+    }
+    
+    public Service update(Service s) {
+        //entityManager.persist(s); //Use mock for a start
+        ServiceList.set((int) (long) s.getId(), s); //TODO unMock
         return s;
     }
-
+    
+    public Service persist(Service s) throws Exception {
+        //entityManager.persist(s); //Use mock for a start
+        s.setId(ServiceList.size()); //TODO unMock
+        for (Service service : ServiceList) {
+            if (service.getNom().equals(s.getNom())) {
+                throw new Exception("Service with this name already exist !");
+            }
+        }
+        ServiceList.add(s);
+        return s;
+    }
+    
 }
