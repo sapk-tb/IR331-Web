@@ -85,8 +85,9 @@
             <% if (c.getEtat().equals("waitsign")) { %>
                 <a class="btn btn-primary" href="?p=contrat&a=waitsign&id=<%=c.getId()%>"> Lien de signature </a>
             <% } %>
-            <!-- //TODO For CDI/CDD <a class="btn btn-success" href="?p=contrat&a=closed&id=<%=c.getId()%>"> Close </a> -->
-            <%
+            <% if (c.getEtat().equals("active")) { %>
+                <a class="btn btn-success" href="?p=contrat&a=close&id=<%=c.getId()%>"> Close </a>
+            <% }
         }
     } else if (a != null && a.equals("waitsign")) {
         // Signature par l'employé
@@ -122,6 +123,18 @@
 
         try {
             contratBean.sign(new Integer(request.getParameter("id")));
+            %> <div class="alert alert-success" role="alert"><strong>OK !</strong></div> <script> window.setTimeout('window.location = "?p=contrat"', 2000);</script> <%
+        } catch (Exception ex) {
+            %> 
+            <br><div class="alert alert-danger" role="alert"><strong>NOK !</strong> -> Details : <%=ex.getMessage()%></div>
+            <%
+        }
+
+    } else if (a != null && a.equals("close")) {
+        // Cloture du contrat et msie de la date de cloture à aujourd'hui
+
+        try {
+            contratBean.close(new Integer(request.getParameter("id")));
             %> <div class="alert alert-success" role="alert"><strong>OK !</strong></div> <script> window.setTimeout('window.location = "?p=contrat"', 2000);</script> <%
         } catch (Exception ex) {
             %> 
