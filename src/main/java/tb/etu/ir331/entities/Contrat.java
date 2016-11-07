@@ -14,7 +14,7 @@ import javax.persistence.OneToOne;
 @Entity
 public class Contrat implements Serializable {
 
-    @Id
+    @Id    
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -25,7 +25,10 @@ public class Contrat implements Serializable {
     private String type;
 
     @Basic
-    private String date;
+    private String startDate;
+
+    @Basic
+    private String endDate;
 
     @OneToOne(targetEntity = Employe.class)
     private Employe employe;
@@ -38,12 +41,12 @@ public class Contrat implements Serializable {
         this.id = id;
     }
 
-    public String getEtat() {
-        return this.etat;
+    public String getEtat() { // waitsign, active, closed
+        return this.etat; //TODO if CDD and endDate passed -> closed
     }
-
-    public void setEtat(String etat) { // waitsign, active, closed
-        this.etat = etat; //TODO if CDD and endDate passed -> closed
+    
+    public void setEtat(String etat) {
+        this.etat = etat;
     }
 
     public String getType() {
@@ -54,12 +57,20 @@ public class Contrat implements Serializable {
         this.type = type;
     }
 
-    public String getDate() {
-        return this.date;
+    public String getStartDate() {
+        return this.startDate;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getEndDate() {
+        return this.endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
     }
 
     public Employe getEmploye() {

@@ -68,7 +68,8 @@
             <p>Employé : <%=c.getEmploye().getPrenom()%> <%=c.getEmploye().getNom()%></p>
             <p>State : <%=c.getEtat()%></p>
             <p>Type : <%=c.getType()%></p>
-            <p>Date : <%=c.getDate()%></p>
+            <p>Start Date : <%=c.getStartDate()%></p>
+            <p>End Date : <%=c.getEndDate()%></p>
             <% if (c.getEtat().equals("waitsign")) { %>
                 <a class="btn btn-primary" href="?p=contrat&a=waitsign&id=<%=c.getId()%>"> Lien de signature </a>
             <% } %>
@@ -99,7 +100,8 @@
             <p>Employé : <%=c.getEmploye().getPrenom()%> <%=c.getEmploye().getNom()%></p>
             <p>State : <%=c.getEtat()%></p>
             <p>Type : <%=c.getType()%></p>
-            <p>Date : <%=c.getDate()%></p>
+            <p>Start Date : <%=c.getStartDate()%></p>
+            <p>End Date : <%=c.getEndDate()%></p>
             <a class="btn btn-success" href="?p=contrat&a=sign_confirm&id=<%=c.getId()%>"> Signer </a>
             <%
         }
@@ -117,23 +119,11 @@
 
     } else if (a != null && a.equals("add_confirm")) {
         //TODO checkup var 
-        //TODO add date debut fin
-        Employe e = null;
-        if (request.getParameter("employe") != null && !request.getParameter("employe").equals("-1")) {
-            IEmployeBean employeBean = (IEmployeBean) ServicesLocator.getInstance().getRemoteInterface("EmployeBean");
-            try {
-                e = employeBean.getEmploye(new Integer(request.getParameter("employe")));
-                contratBean.create(e, request.getParameter("type")); //Create with employe default state waitsign
+        try {
+                contratBean.create(new Integer(request.getParameter("employe")), request.getParameter("type")); //Create with employe default state waitsign
                 %> <div class="alert alert-success" role="alert"><strong>OK !</strong></div> <script> window.setTimeout('window.location = "?p=contrat"', 2000);</script> <%
-            } catch (Exception ex) { //Alert and block
-                %> 
-                <br><div class="alert alert-warning" role="alert"><strong>NOK !</strong> -> Employe to attach (<%=request.getParameter("employe")%>) not found Details : <%=ex.getMessage()%></div>
-                <%
-            }
-        } else {
-                %> 
-                <br><div class="alert alert-warning" role="alert"><strong>NOK !</strong> -> Employe not defined </div>
-                <%
+        } catch (Exception ex) { //Alert and block
+            %><br><div class="alert alert-warning" role="alert"><strong>NOK !</strong> Details : <%=ex.getMessage()%></div><%
         }
     } else {
     %> <h3> Contrat list : </h3>
@@ -141,14 +131,16 @@
     
         <table class="table table-striped table-hover">
             <thead>
-                <tr><th>ID</th><th>Employe</th><th>Date</th><th>State</th></tr>
+                <tr><th>ID</th><th>Employe</th><th>Type</th><th>Start Date</th><th>End Date</th><th>State</th></tr>
             </thead>
             <tbody>
             <% for (Contrat c : contratBean.list()) { %>
                 <tr>
                     <td><a href="?p=contrat&a=view&id=<%=c.getId()%>"><%=c.getId()%></a></td>
                     <td><a href="?p=employe&a=view&id=<%=c.getEmploye().getId()%>"><%=c.getEmploye().getPrenom()%> <%=c.getEmploye().getNom()%></a></td>
-                    <td><%=c.getDate()%></td>
+                    <td><%=c.getType()%></td>
+                    <td><%=c.getStartDate()%></td>
+                    <td><%=c.getEndDate()%></td>
                     <td><%=c.getEtat()%></td>
                 </tr>
                 <%   } %> 

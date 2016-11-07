@@ -1,10 +1,13 @@
 package tb.etu.ir331.services;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import tb.etu.ir331.dao.ContratDAO;
+import tb.etu.ir331.dao.EmployeDAO;
 import tb.etu.ir331.entities.Contrat;
 import tb.etu.ir331.entities.Employe;
 
@@ -18,19 +21,32 @@ public class ContratBean implements IContratBean {
 
     @EJB
     private ContratDAO contratDAO;
+    @EJB
+    private EmployeDAO employeDAO;
 
     @Override
-    public void create(Employe emp, String type) throws Exception {
-        this.create(emp, type, "waitsign");
-    }
+    public void create(int empId, String type) throws Exception {
+        Date today = Calendar.getInstance().getTime();
+        this.create(empId, type, "waitsign",today.toString(),null);
+    }   
+    
     @Override
-    public void create(Employe emp, String type, String etat) throws Exception {
+    public void create(int empId, String type, String etat, String startDate, String endDate) throws Exception {        
+        Employe emp = employeDAO.findById(empId);
+        if(emp == null){
+            throw new Exception("Employé non trouvé ou non fournit.");
+        }
         Contrat c = new Contrat();
 
+        if(type.equals("CDD") && endDate == null){
+            throw new Exception("Un contrat CDD necessite une date de fin.");
+        }
+        
         c.setEmploye(emp);
         c.setType(type);
         c.setEtat(etat);
-//        c.setDate();
+        c.setStartDate(startDate);
+        c.setEndDate(endDate);
 
         contratDAO.persist(c);
     }
