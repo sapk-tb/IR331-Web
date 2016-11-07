@@ -6,13 +6,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+/**
+ * @author sapk
+ */
 @Entity
 public class Service implements Serializable {
-
-    @OneToOne(targetEntity = Employe.class)
-    private Employe responsable;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,24 +25,14 @@ public class Service implements Serializable {
     @Basic
     private String etat;
 
-    public Service() {
+    @OneToOne(targetEntity = Employe.class)
+    private Employe responsable;
 
-    }
-
-    public Employe getResponsable() {
-        return this.responsable;
-    }
-
-    public void setResponsable(Employe responsable) {
-        this.responsable = responsable;
-    }
+    @ManyToOne(targetEntity = Service.class)
+    private Service parent;
 
     public Long getId() {
         return this.id;
-    }
-
-    public void setId(int id) {
-        this.setId(new Long(id));
     }
 
     public void setId(Long id) {
@@ -53,7 +44,7 @@ public class Service implements Serializable {
     }
 
     public void setNom(String nom) {
-        this.nom = nom.trim();
+        this.nom = nom;
     }
 
     public String getEtat() {
@@ -63,4 +54,21 @@ public class Service implements Serializable {
     public void setEtat(String etat) {
         this.etat = etat;
     }
+
+    public Employe getResponsable() {
+        return this.responsable;
+    }
+
+    public void setResponsable(Employe responsable) {
+        this.responsable = responsable;
+    }
+
+    public Service getParent() {
+        return this.parent;
+    }
+
+    public void setParent(Service parent) {
+        this.parent = parent;
+    }
+
 }

@@ -3,7 +3,7 @@
   <persistence-unit name="tb.etu.ir331_IR331-Web_war_1.0-SNAPSHOTPU" transaction-type="JTA">
     <jta-data-source>java:app/ir331</jta-data-source>
     <properties>
-      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+      <property name="javax.persistence.schema-generation.database.action" value="create"/>
     </properties>
   </persistence-unit>
 </persistence>

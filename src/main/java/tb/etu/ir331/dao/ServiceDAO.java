@@ -1,6 +1,5 @@
 package tb.etu.ir331.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -24,33 +23,21 @@ public class ServiceDAO {
     @PersistenceContext
     EntityManager entityManager;
 
-    //List<Service> ServiceList = new ArrayList<>(); //Mock of DB //TODO unMock
 
     /**
      * Default constructor.
      */
     public ServiceDAO() {
-        // TODO Auto-generated constructor stub
     }
 
     public Service findById(Integer id) throws Exception {
         System.out.println("ServiceDAO.findById(" + id + ")");
-        /*
-        try {
-            return ServiceList.get(id);//TODO unMock
-        } catch (Exception e) {
-            throw new Exception("Service ID not Found, " + e.getMessage());
-        }
-        */
-        //return null; //
-        return entityManager.find(Service.class, id);
+        return entityManager.find(Service.class, (long) id);
     }
 
     public List<Service> findAll() {
-        //return ServiceList; //TODO UnMock
         Query query = entityManager.createQuery("select service from Service service order by service.id");
         List l = query.getResultList();
-
         return (List<Service>) l;
     }
 
@@ -63,22 +50,20 @@ public class ServiceDAO {
     public Service update(Service s) throws Exception {
         validate(s);
         Service result = entityManager.merge(s);
-        //ServiceList.set((int) (long) s.getId(), s); //TODO unMock
         return result;
     }
 
     public Service persist(Service s) throws Exception {
         validate(s);
-        entityManager.persist(s); 
-        /*
-        s.setId(ServiceList.size()); //TODO unMock
+        /* //TODO
         for (Service service : ServiceList) {
             if (service.getNom().equals(s.getNom())) {
                 throw new Exception("Service with this name already exist !");
             }
         }
-        ServiceList.add(s); 
+        //TODO check for parent in childrens
         */
+        entityManager.persist(s); 
         return s;
     }
 

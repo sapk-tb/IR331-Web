@@ -9,22 +9,13 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+/**
+ * @author sapk
+ */
 @Entity
 public class Employe implements Serializable {
 
-    @OneToOne(targetEntity = Contrat.class, mappedBy = "employé")
-    private Contrat contrat;
-
-    @Basic
-    private String prénom;
-
-    @ManyToOne(targetEntity = Service.class)
-    private Service service;
-
-    @Basic
-    private String details;
-
-    @Id
+    @Id    
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -32,50 +23,22 @@ public class Employe implements Serializable {
     private String etat;
 
     @Basic
+    private String details;
+
+    @Basic
     private String nom;
 
-    public Employe() {
+    @Basic
+    private String prenom;
 
-    }
+    @OneToOne(targetEntity = Contrat.class, mappedBy = "employe")
+    private Contrat contrat;
 
-    public Contrat getContrat() {
-        return this.contrat;
-    }
-
-    public void setContrat(Contrat contrat) {
-        this.contrat = contrat;
-    }
-
-    public String getPrénom() {
-        return this.prénom;
-    }
-
-    public void setPrénom(String prénom) {
-        this.prénom = prénom.trim();
-    }
-
-    public Service getService() {
-        return this.service;
-    }
-
-    public void setService(Service service) {
-        this.service = service;
-    }
-
-    public String getDetails() {
-        return this.details;
-    }
-
-    public void setDetails(String details) {
-        this.details = details;
-    }
+    @ManyToOne(targetEntity = Service.class)
+    private Service service;
 
     public Long getId() {
         return this.id;
-    }
-
-    public void setId(int id) {
-        this.setId(new Long(id));
     }
 
     public void setId(Long id) {
@@ -90,11 +53,44 @@ public class Employe implements Serializable {
         this.etat = etat;
     }
 
+    public String getDetails() {
+        return this.details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
+    }
+
     public String getNom() {
         return this.nom;
     }
 
     public void setNom(String nom) {
-        this.nom = nom.trim();
+        this.nom = nom;
     }
+
+    public String getPrenom() {
+        return this.prenom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
+    public Contrat getContrat() {
+        return this.contrat;
+    }
+
+    public void setContrat(Contrat contrat) {
+        this.contrat = contrat;
+    }
+
+    public Service getService() {
+        return this.service;
+    }
+
+    public void setService(Service service) {
+        this.service = service;
+    }
+
 }

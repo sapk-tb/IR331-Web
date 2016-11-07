@@ -32,7 +32,7 @@ public class EmployeBean implements IEmployeBean {
     @Override
     public void create(String prenom, String nom, Service service) throws Exception{
         Employe e = new Employe();
-        e.setPrénom(prenom);
+        e.setPrenom(prenom);
         e.setNom(nom);
         e.setService(service);
         employeDAO.persist(e);

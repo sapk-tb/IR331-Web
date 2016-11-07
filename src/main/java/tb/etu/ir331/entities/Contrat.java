@@ -8,44 +8,27 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+/**
+ * @author sapk
+ */
 @Entity
 public class Contrat implements Serializable {
-
-    @Basic
-    private String date;
-
-    @OneToOne(targetEntity = Employe.class)
-    private Employe employé;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Basic
+    private String etat;
+
+    @Basic
     private String type;
 
     @Basic
-    private String etat;
+    private String date;
 
-    public Contrat() {
-
-    }
-
-    public String getDate() {
-        return this.date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public Employe getEmployé() {
-        return this.employé;
-    }
-
-    public void setEmployé(Employe employé) {
-        this.employé = employé;
-    }
+    @OneToOne(targetEntity = Employe.class)
+    private Employe employe;
 
     public Long getId() {
         return this.id;
@@ -53,6 +36,14 @@ public class Contrat implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getEtat() {
+        return this.etat;
+    }
+
+    public void setEtat(String etat) {
+        this.etat = etat;
     }
 
     public String getType() {
@@ -63,11 +54,20 @@ public class Contrat implements Serializable {
         this.type = type;
     }
 
-    public String getEtat() {
-        return this.etat;
+    public String getDate() {
+        return this.date;
     }
 
-    public void setEtat(String etat) {
-        this.etat = etat;
+    public void setDate(String date) {
+        this.date = date;
     }
+
+    public Employe getEmploye() {
+        return this.employe;
+    }
+
+    public void setEmploye(Employe employe) {
+        this.employe = employe;
+    }
+
 }

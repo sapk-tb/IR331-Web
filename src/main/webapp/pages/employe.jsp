@@ -17,7 +17,7 @@
     <%
         IEmployeBean employeBean = (IEmployeBean) ServicesLocator.getInstance().getRemoteInterface("EmployeBean");
         if (a != null && a.equals("add")) {
-    %> <h3> Add service :</h3> <%
+    %> <h3> Add employé :</h3> <%
         IServiceBean serviceBean = (IServiceBean) ServicesLocator.getInstance().getRemoteInterface("ServiceBean");
     %>
     <form class="form-horizontal" action="index.jsp?p=employe&a=add_confirm" method="POST" >
@@ -79,7 +79,7 @@
             <div class="form-group">
                 <label for="prenom" class="col-lg-2 control-label">Prénom</label>
                 <div class="col-lg-10">
-                    <input name="prenom" class="form-control" id="prenom" type="text" disabled="disabled" value="<%=e.getPrénom()%>">
+                    <input name="prenom" class="form-control" id="prenom" type="text" disabled="disabled" value="<%=e.getPrenom()%>">
                 </div>
             </div>
             <div class="form-group">
@@ -125,7 +125,7 @@
     <%
     } else {
     %>
-    <p>Identité : <%=e.getPrénom()%> <%=e.getNom()%></p>
+    <p>Identité : <%=e.getPrenom()%> <%=e.getNom()%></p>
     <p>Service : <% if (e.getService() != null) {%><%=e.getService().getNom()%><%}%> <a class="btn  btn-default btn-sm" href="?p=employe&a=attach&id=<%=e.getId()%>"> Change </a></p>
     <p>Détails : <%=e.getDetails()%></p>
     <%
@@ -175,17 +175,15 @@
         }
     } else {
 //List employes
-    %> <h3> Employe list :</h3> <%
-//*
-    %> 
+    %> <h3> Employe list :</h3> 
     <table class="table table-striped table-hover">
         <thead><tr><th>ID</th><th>Prénom</th><th>Nom</th><th>Service</th></tr></thead>
         <tbody>
             <%                for (Employe e : employeBean.list()) {
-            %><tr><td><a href="?p=employe&a=view&id=<%=e.getId()%>"><%=e.getId()%></a></td><td><%=e.getPrénom()%></td><td><%=e.getNom()%></td><td><% if (e.getService() != null) {%><a href="?p=service&a=view&id=<%=e.getService().getId()%>"><%=e.getService().getNom()%></a><%}%></td></tr><%
+            %><tr><td><a href="?p=employe&a=view&id=<%=e.getId()%>"><%=e.getId()%></a></td><td><%=e.getPrenom()%></td><td><%=e.getNom()%></td><td><% if (e.getService() != null) {%><a href="?p=service&a=view&id=<%=e.getService().getId()%>"><%=e.getService().getNom()%></a><%}%></td></tr><%
                 }
 
-                                    %> </tbody></table> <%                    //*/
+                                    %> </tbody></table> <%                    
                                         }
             %>
 </div>
