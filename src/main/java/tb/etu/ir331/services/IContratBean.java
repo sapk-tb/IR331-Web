@@ -13,9 +13,12 @@ import tb.etu.ir331.entities.Employe;
 public interface IContratBean {
 
     public void create(Employe emp, String type) throws Exception;
+
     public void create(Employe emp, String type, String etat) throws Exception;
 
     public List<Contrat> list();
+
+    public void sign(int id) throws Exception;
 
     public Contrat getContrat(int id) throws Exception;
 }

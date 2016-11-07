@@ -32,7 +32,7 @@ public class EmployeDAO {
     public List<Employe> findByServiceId(Long sid) throws Exception {
         System.out.println("EmployeDAO.findByServiceId(" + sid + ")");
         //Query query = entityManager.createQuery("select employe from Employe employe where service.id == "+Sid+" order by employe.id");
-        Query query = entityManager.createQuery("select employe from Employe employe where employe.service.id = :sid order by employe.id"); //TODO
+        Query query = entityManager.createQuery("select employe from Employe employe where employe.service.id = :sid order by employe.id");
       	query.setParameter("sid", (long) sid);
         List l = query.getResultList();
         return (List<Employe>) l;

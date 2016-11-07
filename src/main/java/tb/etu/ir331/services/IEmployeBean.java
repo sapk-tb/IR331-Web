@@ -2,6 +2,7 @@ package tb.etu.ir331.services;
 
 import java.util.List;
 import javax.ejb.Remote;
+import tb.etu.ir331.entities.Contrat;
 import tb.etu.ir331.entities.Employe;
 import tb.etu.ir331.entities.Service;
 /**
@@ -18,5 +19,8 @@ public interface IEmployeBean {
     public Employe getEmploye(int id) throws Exception;
 
     public List<Employe> list();
+    
+    public List<Contrat> getContratList(Employe e) throws Exception;
+    public int getNbContrat(Employe e) throws Exception;
 
 }

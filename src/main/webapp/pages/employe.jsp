@@ -9,7 +9,7 @@
     String a = request.getParameter("a");
 %>
 <div>
-    <% if (a == null || !a.startsWith("add")) { %> <a href="?p=employe&a=add" class="btn btn-default pull-right">Ajouter +</a><% } %>
+    <% if (a == null ) { %> <a href="?p=employe&a=add" class="btn btn-default pull-right">Ajouter +</a><% } %>
     <h2> Employés </h2>
 </div>
 

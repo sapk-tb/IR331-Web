@@ -5,8 +5,10 @@ import java.util.Objects;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import tb.etu.ir331.dao.ContratDAO;
 import tb.etu.ir331.dao.EmployeDAO;
 import tb.etu.ir331.dao.ServiceDAO;
+import tb.etu.ir331.entities.Contrat;
 import tb.etu.ir331.entities.Employe;
 import tb.etu.ir331.entities.Service;
 
@@ -23,6 +25,8 @@ public class EmployeBean implements IEmployeBean {
     private EmployeDAO employeDAO;
     @EJB
     private ServiceDAO serviceDAO;
+    @EJB
+    private ContratDAO contratDAO;
 
     @Override
     public void create(String prenom, String nom) throws Exception{
@@ -58,5 +62,14 @@ public class EmployeBean implements IEmployeBean {
         }
         e.setService(s);
         employeDAO.update(e);
+    }
+    
+    @Override
+    public List<Contrat> getContratList(Employe e) throws Exception {
+        return contratDAO.findByEmployeId(e.getId());
+    }
+    @Override
+    public int getNbContrat(Employe e) throws Exception {
+        return contratDAO.findByEmployeId(e.getId()).size();
     }
 }

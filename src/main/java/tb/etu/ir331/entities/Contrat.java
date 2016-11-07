@@ -42,8 +42,8 @@ public class Contrat implements Serializable {
         return this.etat;
     }
 
-    public void setEtat(String etat) {
-        this.etat = etat;
+    public void setEtat(String etat) { // waitsign, active, closed
+        this.etat = etat; //TODO if CDD and endDate passed -> closed
     }
 
     public String getType() {

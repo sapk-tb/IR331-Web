@@ -36,6 +36,18 @@ public class ContratBean implements IContratBean {
     }
 
     @Override
+    public void sign(int id) throws Exception {
+        Contrat c = this.getContrat(id);
+
+        if(!c.getEtat().equals("waitsign")){
+            throw new Exception("Le contrat n'est pas en attente de signature.");
+        }
+        c.setEtat("active");
+//        c.setDate();
+
+        contratDAO.update(c);
+    }
+    @Override
     public Contrat getContrat(int id) throws Exception {
         return contratDAO.findById(id);
     }

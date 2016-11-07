@@ -8,7 +8,7 @@
     String a = request.getParameter("a");
 %>
 <div>
-    <% if (a == null || !a.startsWith("add")) { %> <a href="?p=contrat&a=add" class="btn btn-default pull-right">Ajouter +</a><% } %>
+    <% if (a == null ) { %> <a href="?p=contrat&a=add" class="btn btn-default pull-right">Ajouter +</a><% } %>
     <h2> Contrats </h2>
 </div>
 <div>
@@ -18,7 +18,7 @@
     %> <h3> Add contrat :</h3> <%
         IEmployeBean employeBean = (IEmployeBean) ServicesLocator.getInstance().getRemoteInterface("EmployeBean");
     %>
-        <form class="form-horizontal" action="index.jsp?p=employe&a=add_confirm" method="POST" >
+        <form class="form-horizontal" action="index.jsp?p=contrat&a=add_confirm" method="POST" >
         <fieldset>
             <div class="form-group">
                 <label for="employe" class="col-lg-2 control-label">Employé</label>
@@ -60,15 +60,59 @@
             <%
         }
         if (c == null) {
-    %>
-    <p>Contrat Not Found</p>
-    <%
-    } else {
-    %>
-    <p>Employé : <%=c.getEmploye().getPrenom()%> <%=c.getEmploye().getNom()%></p>
-    <p>Type : <%=c.getType()%></p>
-    <p>Date : <%=c.getDate()%></p>
-    <%
+            %>
+            <p>Contrat Not Found</p>
+            <%
+            } else {
+            %>
+            <p>Employé : <%=c.getEmploye().getPrenom()%> <%=c.getEmploye().getNom()%></p>
+            <p>State : <%=c.getEtat()%></p>
+            <p>Type : <%=c.getType()%></p>
+            <p>Date : <%=c.getDate()%></p>
+            <% if (c.getEtat().equals("waitsign")) { %>
+                <a class="btn btn-primary" href="?p=contrat&a=waitsign&id=<%=c.getId()%>"> Lien de signature </a>
+            <% } %>
+            <!-- //TODO For CDI/CDD <a class="btn btn-success" href="?p=contrat&a=closed&id=<%=c.getId()%>"> Close </a> -->
+            <%
+        }
+    } else if (a != null && a.equals("waitsign")) {
+        // Signature par l'employé
+        Contrat c = null;
+        try {
+            c = contratBean.getContrat(new Integer(request.getParameter("id")));
+        } catch (Exception ex) {
+            %> 
+            <br><div class="alert alert-danger" role="alert"><strong>NOK !</strong> -> Details : <%=ex.getMessage()%></div>
+            <%
+        }
+        if (c == null) {
+            %>
+            <p>Contrat Not Found</p>
+            <%
+        } else if (!c.getEtat().equals("waitsign")) {
+            %>
+            <p>Le contrat n'est pas en attente de signature.</p>
+            <%
+        } else {
+            %>
+            <p>ID : <%=c.getId()%></p>
+            <p>Employé : <%=c.getEmploye().getPrenom()%> <%=c.getEmploye().getNom()%></p>
+            <p>State : <%=c.getEtat()%></p>
+            <p>Type : <%=c.getType()%></p>
+            <p>Date : <%=c.getDate()%></p>
+            <a class="btn btn-success" href="?p=contrat&a=sign_confirm&id=<%=c.getId()%>"> Signer </a>
+            <%
+        }
+    } else if (a != null && a.equals("sign_confirm")) {
+        // Validation signature par l'employé
+
+        try {
+            contratBean.sign(new Integer(request.getParameter("id")));
+            %> <div class="alert alert-success" role="alert"><strong>OK !</strong></div> <script> window.setTimeout('window.location = "?p=contrat"', 2000);</script> <%
+        } catch (Exception ex) {
+            %> 
+            <br><div class="alert alert-danger" role="alert"><strong>NOK !</strong> -> Details : <%=ex.getMessage()%></div>
+            <%
         }
 
     } else if (a != null && a.equals("add_confirm")) {
@@ -93,9 +137,13 @@
         }
     } else {
     %> <h3> Contrat list : </h3>
+    
+    
         <table class="table table-striped table-hover">
-        <thead><tr><th>ID</th><th>Employe</th>><th>Date</th><th>State</th></tr></thead>
-        <tbody>
+            <thead>
+                <tr><th>ID</th><th>Employe</th><th>Date</th><th>State</th></tr>
+            </thead>
+            <tbody>
             <% for (Contrat c : contratBean.list()) { %>
                 <tr>
                     <td><a href="?p=contrat&a=view&id=<%=c.getId()%>"><%=c.getId()%></a></td>
@@ -104,6 +152,7 @@
                     <td><%=c.getEtat()%></td>
                 </tr>
                 <%   } %> 
-        </tbody></table> 
+            </tbody>
+        </table> 
     <% } %>
 </div>
