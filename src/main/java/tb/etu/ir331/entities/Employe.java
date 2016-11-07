@@ -93,4 +93,9 @@ public class Employe implements Serializable {
         this.service = service;
     }
 
+    @Override
+    public String toString() {
+        return "Employe{" + "id=" + id + ", etat=" + etat + ", details=" + details + ", nom=" + nom + ", prenom=" + prenom + ", contrat=" + contrat.getId() + ", service=" + service.getId() + '}';
+    }
+
 }

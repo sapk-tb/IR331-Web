@@ -25,17 +25,17 @@ public class ServiceBean implements IServiceBean {
     private EmployeDAO employeDAO;
 
     @Override
-    public void create(String name, String etat) throws Exception {
-        this.create(name, etat, null);
+    public Service create(String name, String etat) throws Exception {
+        return this.create(name, etat, null);
     }
 
     @Override
-    public void create(String name, String etat, Employe responsable) throws Exception {
+    public Service create(String name, String etat, Employe responsable) throws Exception {
         Service s = new Service();
         s.setNom(name);
         s.setEtat(etat);
         s.setResponsable(responsable);
-        serviceDAO.persist(s);
+        return serviceDAO.persist(s);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class ServiceBean implements IServiceBean {
     }
 
     @Override
-    public void setResp(int IdServ, int idEmp) throws Exception {
+    public Service setResp(int IdServ, int idEmp) throws Exception {
         Service s = serviceDAO.findById(IdServ);
         Employe e = employeDAO.findById(idEmp);
 
@@ -66,7 +66,7 @@ public class ServiceBean implements IServiceBean {
         }
         */
         s.setResponsable(e);
-        serviceDAO.update(s);
+        return serviceDAO.update(s);
     }
 
     @Override

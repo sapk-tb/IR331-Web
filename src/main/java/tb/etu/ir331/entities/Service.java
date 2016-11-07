@@ -28,6 +28,7 @@ public class Service implements Serializable {
     @OneToOne(targetEntity = Employe.class)
     private Employe responsable;
 
+    //TODO
     @ManyToOne(targetEntity = Service.class)
     private Service parent;
 
@@ -69,6 +70,11 @@ public class Service implements Serializable {
 
     public void setParent(Service parent) {
         this.parent = parent;
+    }
+
+    @Override
+    public String toString() {
+        return "Service{" + "id=" + id + ", nom=" + nom + ", etat=" + etat + ", responsable=" + responsable.getId() + ", parent=" + parent + '}';
     }
 
 }

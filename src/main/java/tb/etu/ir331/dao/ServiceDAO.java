@@ -57,6 +57,7 @@ public class ServiceDAO {
     }
 
     public void validate(Service s) throws Exception {
+        //TODO check different etat
         if (s.getNom() == null || "".equals(s.getNom().trim())) {
             throw new Exception("Service name is empty !");
         }

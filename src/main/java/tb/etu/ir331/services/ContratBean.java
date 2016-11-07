@@ -1,6 +1,5 @@
 package tb.etu.ir331.services;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -27,13 +26,13 @@ public class ContratBean implements IContratBean {
 
 
     @Override
-    public void create(int empId, String type) throws Exception {
+    public Contrat create(int empId, String type) throws Exception {
         Date today = Calendar.getInstance().getTime();
-        this.create(empId, type, "waitsign", Contrat.dateFormat.format(today), null);
+        return this.create(empId, type, "waitsign", Contrat.dateFormat.format(today), null);
     }
 
     @Override
-    public void create(int empId, String type, String etat, String startDate, String endDate) throws Exception {
+    public Contrat create(int empId, String type, String etat, String startDate, String endDate) throws Exception {
         Employe emp = employeDAO.findById(empId);
  
         Contrat c = new Contrat();
@@ -44,11 +43,11 @@ public class ContratBean implements IContratBean {
         c.setStartDate(startDate);
         c.setEndDate(endDate);
 
-        contratDAO.persist(c);
+        return contratDAO.persist(c);
     }
 
     @Override
-    public void sign(int id) throws Exception {
+    public Contrat sign(int id) throws Exception {
         Contrat c = this.getContrat(id);
 
         if (!c.getEtat().equals("waitsign")) {
@@ -57,7 +56,7 @@ public class ContratBean implements IContratBean {
         c.setEtat("active");
 //        c.setDate();
 
-        contratDAO.update(c);
+        return contratDAO.update(c);
     }
 
     @Override

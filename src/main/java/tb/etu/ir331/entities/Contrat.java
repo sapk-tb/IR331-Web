@@ -85,4 +85,9 @@ public class Contrat implements Serializable {
         this.employe = employe;
     }
 
+    @Override
+    public String toString() {
+        return "Contrat{" + "id=" + id + ", etat=" + etat + ", type=" + type + ", startDate=" + startDate + ", endDate=" + endDate + ", employe=" + employe.getId() + '}';
+    }
+
 }

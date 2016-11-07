@@ -28,17 +28,17 @@ public class EmployeBean implements IEmployeBean {
     private ContratDAO contratDAO;
 
     @Override
-    public void create(String prenom, String nom) throws Exception{
-        this.create(prenom, nom, null);
+    public Employe create(String prenom, String nom) throws Exception{
+        return this.create(prenom, nom, null);
     }
 
     @Override
-    public void create(String prenom, String nom, Service service) throws Exception{
+    public Employe create(String prenom, String nom, Service service) throws Exception{
         Employe e = new Employe();
         e.setPrenom(prenom);
         e.setNom(nom);
         e.setService(service);
-        employeDAO.persist(e);
+        return employeDAO.persist(e);
     }
 
     @Override
@@ -52,7 +52,7 @@ public class EmployeBean implements IEmployeBean {
     }
 
     @Override
-    public void attach(int idEmp, int IdServ) throws Exception {
+    public Employe attach(int idEmp, int IdServ) throws Exception {
         Employe e = employeDAO.findById(idEmp);
         Service s = serviceDAO.findById(IdServ);
        
@@ -65,7 +65,7 @@ public class EmployeBean implements IEmployeBean {
             throw new Exception("The employe is the chief a service. Please remove from it before.");
         }
         e.setService(s);
-        employeDAO.update(e);
+        return employeDAO.update(e);
     }
     
     @Override

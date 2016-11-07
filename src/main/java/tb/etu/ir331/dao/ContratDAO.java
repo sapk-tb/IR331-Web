@@ -50,7 +50,9 @@ public class ContratDAO {
     }
 
     public void validate(Contrat c) throws Exception {
-        //TODO Un emplye en devrait avoir que un contrat actif ?
+        //TODO Un employe en devrait avoir que un contrat actif ?
+        //TODO check different type
+        //TODO check different etat
         //type is null 
         if (c.getType() == null) {
             throw new Exception("Type is not defined");
