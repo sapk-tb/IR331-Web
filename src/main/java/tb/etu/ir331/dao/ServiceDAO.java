@@ -35,6 +35,21 @@ public class ServiceDAO {
         return entityManager.find(Service.class, (long) id);
     }
 
+    public List<Service> findByResp(int rid) throws Exception {
+        System.out.println("ServiceDAO.findByResp(" + rid + ")");
+        Query query = entityManager.createQuery("select service from Service service where service.responsable.id = :rid order by service.id");
+        query.setParameter("rid", (long)rid);
+        return (List<Service>) query.getResultList();
+    }
+    
+    
+    public List<Service> findByNom(String nom) throws Exception {
+        System.out.println("ServiceDAO.findByNom(" + nom + ")");
+        Query query = entityManager.createQuery("select service from Service service where service.nom = :nom order by service.id");
+        query.setParameter("nom", nom);
+        return (List<Service>) query.getResultList();
+    }
+    
     public List<Service> findAll() {
         Query query = entityManager.createQuery("select service from Service service order by service.id");
         List l = query.getResultList();
@@ -55,14 +70,12 @@ public class ServiceDAO {
 
     public Service persist(Service s) throws Exception {
         validate(s);
-        /* //TODO
-        for (Service service : ServiceList) {
-            if (service.getNom().equals(s.getNom())) {
-                throw new Exception("Service with this name already exist !");
-            }
+        
+        // Uniq name
+        if(this.findByNom(s.getNom()).size()>0){
+            throw new Exception("Service with this name already exist !");
         }
-        //TODO check for parent in childrens
-        */
+               
         entityManager.persist(s); 
         return s;
     }

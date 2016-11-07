@@ -141,6 +141,7 @@
             %>
             <p>Service : <%=s.getNom()%></p>
             <p>Responsable : <% if (s.getResponsable() != null) {%><%=s.getResponsable().getPrenom()%> <%=s.getResponsable().getNom()%><%}%> <a class="btn  btn-default btn-sm" href="?p=service&a=setResp&id=<%=s.getId()%>"> Change </a></p>
+            <p>Employés : </p>
             <table class="table table-striped table-hover">
               <thead><tr><th>ID</th><th>Prénom</th><th>Nom</th></tr></thead>
               <tbody>

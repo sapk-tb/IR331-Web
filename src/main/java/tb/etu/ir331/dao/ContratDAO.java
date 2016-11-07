@@ -17,8 +17,6 @@ import tb.etu.ir331.entities.Contrat;
 @Stateless
 @LocalBean
 public class ContratDAO {
-    //TODO CDI/CDD must have startDate
-    //TODO CDD must have endDate
 
     /**
      * Référence vers le gestionnaire de persistance.
@@ -34,7 +32,6 @@ public class ContratDAO {
 
     public List<Contrat> findByEmployeId(Long eid) throws Exception {
         System.out.println("ContratDAO.findByEmployeId(" + eid + ")");
-        //Query query = entityManager.createQuery("select employe from Employe employe where service.id == "+Sid+" order by employe.id");
         Query query = entityManager.createQuery("select contrat from Contrat contrat where contrat.employe.id = :eid order by contrat.id");
         query.setParameter("eid", (long) eid);
         List l = query.getResultList();
