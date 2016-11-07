@@ -1,3 +1,4 @@
+<%@page import="tb.etu.ir331.entities.Contrat"%>
 <%@page import="tb.etu.ir331.entities.Service"%>
 <%@page import="tb.etu.ir331.services.IServiceBean"%>
 <%@page import="tb.etu.ir331.entities.Employe"%>
@@ -66,48 +67,48 @@
             <%
         }
         if (e == null) {
-    %>
-    <p>Employe Not Found</p>
-    <%
-    } else {
-        IServiceBean serviceBean = (IServiceBean) ServicesLocator.getInstance().getRemoteInterface("ServiceBean");
-    %>
-    <br>
-    <form class="form-horizontal" action="index.jsp?p=employe&a=attach_confirm" method="POST" >
-        <input name="id" id="id" value="<%=e.getId()%>" type="hidden">
-        <fieldset>
-            <div class="form-group">
-                <label for="prenom" class="col-lg-2 control-label">Prénom</label>
-                <div class="col-lg-10">
-                    <input name="prenom" class="form-control" id="prenom" type="text" disabled="disabled" value="<%=e.getPrenom()%>">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="nom" class="col-lg-2 control-label">Nom</label>
-                <div class="col-lg-10">
-                    <input name="nom" class="form-control" id="nom" type="text" disabled="disabled" value="<%=e.getNom()%>">
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="service" class="col-lg-2 control-label">Service</label>
-                <div class="col-lg-10">
-                    <select class="form-control" id="service" name="service">
-                        <% for (Service s : serviceBean.list()) { //TODO add previous %>
-                        <option value="<%=s.getId()%>"><%=s.getNom()%></option>
-                        <% } %>
-                    </select>
-                    <br>
-                </div>
-            </div>
-            <div class="form-group pull-right">
-                <div class="col-lg-10 col-lg-offset-2">
-                    <button type="reset" class="btn btn-default">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
-            </div>
-        </fieldset>
-    </form>
-    <%
+            %>
+            <p>Employe Not Found</p>
+            <%
+        } else {
+            IServiceBean serviceBean = (IServiceBean) ServicesLocator.getInstance().getRemoteInterface("ServiceBean");
+            %>
+            <br>
+            <form class="form-horizontal" action="index.jsp?p=employe&a=attach_confirm" method="POST" >
+                <input name="id" id="id" value="<%=e.getId()%>" type="hidden">
+                <fieldset>
+                    <div class="form-group">
+                        <label for="prenom" class="col-lg-2 control-label">Prénom</label>
+                        <div class="col-lg-10">
+                            <input name="prenom" class="form-control" id="prenom" type="text" disabled="disabled" value="<%=e.getPrenom()%>">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="nom" class="col-lg-2 control-label">Nom</label>
+                        <div class="col-lg-10">
+                            <input name="nom" class="form-control" id="nom" type="text" disabled="disabled" value="<%=e.getNom()%>">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="service" class="col-lg-2 control-label">Service</label>
+                        <div class="col-lg-10">
+                            <select class="form-control" id="service" name="service">
+                                <% for (Service s : serviceBean.list()) { //TODO add previous %>
+                                <option value="<%=s.getId()%>"><%=s.getNom()%></option>
+                                <% } %>
+                            </select>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="form-group pull-right">
+                        <div class="col-lg-10 col-lg-offset-2">
+                            <button type="reset" class="btn btn-default">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+            <%
         }
     } else if (a != null && a.equals("view")) {
         //TODO checkup var 
@@ -120,15 +121,28 @@
             <%
         }
         if (e == null) {
-    %>
-    <p>Employe Not Found</p>
-    <%
-    } else {
-    %>
-    <p>Identité : <%=e.getPrenom()%> <%=e.getNom()%></p>
-    <p>Service : <% if (e.getService() != null) {%><%=e.getService().getNom()%><%}%> <a class="btn  btn-default btn-sm" href="?p=employe&a=attach&id=<%=e.getId()%>"> Change </a></p>
-    <p>Détails : <%=e.getDetails()%></p>
-    <%
+            %> <p>Employe Not Found</p> <%
+        } else {
+            %>
+            <p>Identité : <%=e.getPrenom()%> <%=e.getNom()%></p>
+            <p>Service : <% if (e.getService() != null) {%><%=e.getService().getNom()%><%}%> <a class="btn  btn-default btn-sm" href="?p=employe&a=attach&id=<%=e.getId()%>"> Change </a></p>
+            <p>Détails : <%=e.getDetails()%></p>
+            <p>Contrats :</p>
+            <table class="table table-striped table-hover">
+              <thead><tr><th>ID</th><th>Type</th><th>Etat</th><th>StartDate</th><th>EndDate</th></tr></thead>
+              <tbody>
+                <% for (Contrat c : employeBean.getContratList(e)) { %>
+                    <tr>
+                        <td><a href="?p=contrat&a=view&id=<%=c.getId()%>"><%=c.getId()%></a></td>
+                        <td><%=c.getType()%></td>
+                        <td><%=c.getEtat()%></td>
+                        <td><%=c.getStartDate()%></td>
+                        <td><%=c.getEndDate()%></td>
+                    </tr>
+                <% } %>
+                </tbody>
+            </table>
+            <%
         }
 
     } else if (a != null && a.equals("attach_confirm")) {
@@ -174,16 +188,20 @@
 
         }
     } else {
-//List employes
-    %> <h3> Employe list :</h3> 
-    <table class="table table-striped table-hover">
-        <thead><tr><th>ID</th><th>Prénom</th><th>Nom</th><th>Service</th></tr></thead>
-        <tbody>
-            <%                for (Employe e : employeBean.list()) {
-            %><tr><td><a href="?p=employe&a=view&id=<%=e.getId()%>"><%=e.getId()%></a></td><td><%=e.getPrenom()%></td><td><%=e.getNom()%></td><td><% if (e.getService() != null) {%><a href="?p=service&a=view&id=<%=e.getService().getId()%>"><%=e.getService().getNom()%></a><%}%></td></tr><%
-                }
-
-                                    %> </tbody></table> <%                    
-                                        }
-            %>
+        //List employes
+        %> 
+        <h3> Employe list :</h3> 
+        <table class="table table-striped table-hover">
+            <thead><tr><th>ID</th><th>Prénom</th><th>Nom</th><th>Service</th></tr></thead>
+            <tbody>
+            <% for (Employe e : employeBean.list()) { %>
+                <tr>
+                    <td><a href="?p=employe&a=view&id=<%=e.getId()%>"><%=e.getId()%></a></td>
+                    <td><%=e.getPrenom()%></td><td><%=e.getNom()%></td>
+                    <td><% if (e.getService() != null) {%><a href="?p=service&a=view&id=<%=e.getService().getId()%>"><%=e.getService().getNom()%></a><%}%></td>
+                </tr>
+            <% } %> 
+            </tbody>
+        </table> 
+    <% } %>
 </div>

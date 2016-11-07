@@ -134,22 +134,22 @@
         }
 
         if (s == null) {
-    %>
-    <p>Service Not Found</p>
-    <%
-    } else {
-    %>
-    <p>Service : <%=s.getNom()%></p>
-    <p>Responsable : <% if (s.getResponsable() != null) {%><%=s.getResponsable().getPrenom()%> <%=s.getResponsable().getNom()%><%}%> <a class="btn  btn-default btn-sm" href="?p=service&a=setResp&id=<%=s.getId()%>"> Change </a></p>
-        <table class="table table-striped table-hover">
-          <thead><tr><th>ID</th><th>Prénom</th><th>Nom</th></tr></thead>
-          <tbody>
-        <% for (Employe e : serviceBean.getEmpList(s)) {%>
-        <tr><td><a href="?p=employe&a=view&id=<%=e.getId()%>"><%=e.getId()%></a></td><td><%=e.getPrenom()%></td><td><%=e.getNom()%><td></tr>
-        <% } %>
-            </tbody>
-        </table>
-        <%
+            %>
+            <p>Service Not Found</p>
+            <%
+        } else {
+            %>
+            <p>Service : <%=s.getNom()%></p>
+            <p>Responsable : <% if (s.getResponsable() != null) {%><%=s.getResponsable().getPrenom()%> <%=s.getResponsable().getNom()%><%}%> <a class="btn  btn-default btn-sm" href="?p=service&a=setResp&id=<%=s.getId()%>"> Change </a></p>
+            <table class="table table-striped table-hover">
+              <thead><tr><th>ID</th><th>Prénom</th><th>Nom</th></tr></thead>
+              <tbody>
+                <% for (Employe e : serviceBean.getEmpList(s)) {%>
+                <tr><td><a href="?p=employe&a=view&id=<%=e.getId()%>"><%=e.getId()%></a></td><td><%=e.getPrenom()%></td><td><%=e.getNom()%><td></tr>
+                <% } %>
+                </tbody>
+            </table>
+            <%
         }
     } else if (a != null && a.equals("add_confirm")) {
         //TODO checkup var 
