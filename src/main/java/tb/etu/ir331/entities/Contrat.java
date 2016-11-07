@@ -1,6 +1,7 @@
 package tb.etu.ir331.entities;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,6 +15,9 @@ import javax.persistence.OneToOne;
 @Entity
 public class Contrat implements Serializable {
 
+    public static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    //new SimpleDateFormat("dd/MM/yyyy");
+    
     @Id    
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -1,5 +1,6 @@
 package tb.etu.ir331.services;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -24,24 +25,19 @@ public class ContratBean implements IContratBean {
     @EJB
     private EmployeDAO employeDAO;
 
+
     @Override
     public void create(int empId, String type) throws Exception {
         Date today = Calendar.getInstance().getTime();
-        this.create(empId, type, "waitsign",today.toString(),null);
-    }   
-    
+        this.create(empId, type, "waitsign", Contrat.dateFormat.format(today), null);
+    }
+
     @Override
-    public void create(int empId, String type, String etat, String startDate, String endDate) throws Exception {        
+    public void create(int empId, String type, String etat, String startDate, String endDate) throws Exception {
         Employe emp = employeDAO.findById(empId);
-        if(emp == null){
-            throw new Exception("Employé non trouvé ou non fournit.");
-        }
+ 
         Contrat c = new Contrat();
 
-        if(type.equals("CDD") && endDate == null){
-            throw new Exception("Un contrat CDD necessite une date de fin.");
-        }
-        
         c.setEmploye(emp);
         c.setType(type);
         c.setEtat(etat);
@@ -55,7 +51,7 @@ public class ContratBean implements IContratBean {
     public void sign(int id) throws Exception {
         Contrat c = this.getContrat(id);
 
-        if(!c.getEtat().equals("waitsign")){
+        if (!c.getEtat().equals("waitsign")) {
             throw new Exception("Le contrat n'est pas en attente de signature.");
         }
         c.setEtat("active");
@@ -63,6 +59,7 @@ public class ContratBean implements IContratBean {
 
         contratDAO.update(c);
     }
+
     @Override
     public Contrat getContrat(int id) throws Exception {
         return contratDAO.findById(id);

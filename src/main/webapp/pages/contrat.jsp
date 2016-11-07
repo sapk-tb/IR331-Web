@@ -41,6 +41,18 @@
                     <br>
                 </div>
             </div>
+            <div class="form-group">
+                <label for="startdate" class="col-lg-2 control-label">startdate</label>
+                <div class="col-lg-10">
+                    <input name="startdate" class="form-control" id="startdate" placeholder="startdate" type="date">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="enddate" class="col-lg-2 control-label">enddate</label>
+                <div class="col-lg-10">
+                    <input name="enddate" class="form-control" id="enddate" placeholder="enddate" type="date">
+                </div>
+            </div>
             <div class="form-group pull-right">
                 <div class="col-lg-10 col-lg-offset-2">
                     <button type="reset" class="btn btn-default">Cancel</button>
@@ -120,7 +132,7 @@
     } else if (a != null && a.equals("add_confirm")) {
         //TODO checkup var 
         try {
-                contratBean.create(new Integer(request.getParameter("employe")), request.getParameter("type")); //Create with employe default state waitsign
+                contratBean.create(new Integer(request.getParameter("employe")), request.getParameter("type"), "waitsign", request.getParameter("startdate"), request.getParameter("enddate")); //Create with employe default state waitsign
                 %> <div class="alert alert-success" role="alert"><strong>OK !</strong></div> <script> window.setTimeout('window.location = "?p=contrat"', 2000);</script> <%
         } catch (Exception ex) { //Alert and block
             %><br><div class="alert alert-warning" role="alert"><strong>NOK !</strong> Details : <%=ex.getMessage()%></div><%
