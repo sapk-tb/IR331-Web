@@ -7,6 +7,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import tb.etu.ir331.entities.Employe;
 
 /**
@@ -24,8 +25,7 @@ public class EmployeDAO {
     @PersistenceContext
     EntityManager entityManager;
 
-    List<Employe> EmployeList = new ArrayList<>(); //Mock of DB //TODO unMock
-
+    //List<Employe> EmployeList = new ArrayList<>(); //Mock of DB //TODO unMock
     /**
      * Default constructor.
      */
@@ -36,27 +36,36 @@ public class EmployeDAO {
     public List<Employe> findByServiceId(Long Sid) throws Exception { //TODO unMock
         System.out.println("EmployeDAO.findByServiceId(" + Sid + ")");
         List<Employe> l = new ArrayList<>();
+        /* TODO
         for (Employe employe : EmployeList) {
             if (employe.getService() != null && Objects.equals(employe.getService().getId(), Sid)) {
                 System.out.println("EmployeDAO.findByServiceId(" + Sid + ") found : " + employe.getId());
                 l.add(employe);
             }
         }
+         */
         return l;
     }
 
     public Employe findById(Integer id) throws Exception {
         System.out.println("EmployeDAO.findById(" + id + ")");
+        /*
         try {
             return EmployeList.get(id);//TODO unMock
         } catch (Exception e) {
             throw new Exception("Employe ID not Found, " + e.getMessage());
         }
-        //return null; //entityManager.find(Service.class, id);
+         */
+        //return null; //
+        return entityManager.find(Employe.class, id);
     }
 
     public List<Employe> findAll() {
-        return EmployeList; //TODO UnMock
+        //return /EmployeList; //TODO UnMock
+        Query query = entityManager.createQuery("select employe from Employe employe order by employe.id");
+        List l = query.getResultList();
+
+        return (List<Employe>) l;
     }
 
     public void validate(Employe e) throws Exception {
@@ -67,16 +76,16 @@ public class EmployeDAO {
 
     public Employe update(Employe e) throws Exception {
         validate(e);
-        //entityManager.persist(s); //Use mock for a start
-        EmployeList.set((int) (long) e.getId(), e); //TODO unMock
-        return e;
+        Employe result = entityManager.merge(e);
+        //EmployeList.set((int) (long) e.getId(), e); //TODO unMock
+        return result;
     }
 
     public Employe persist(Employe e) throws Exception {
-        //entityManager.persist(s); //Use mock for a start
-        e.setId(EmployeList.size()); //TODO unMock
         validate(e);
-        EmployeList.add(e);
+        entityManager.persist(e);
+        //e.setId(EmployeList.size()); //TODO unMock
+        //EmployeList.add(e);
         return e;
     }
 

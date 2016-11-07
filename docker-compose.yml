@@ -1,0 +1,16 @@
+version: '2'
+services:
+  db:
+    container_name: pgdb 
+    image: postgres:9.5
+    environment:
+      - POSTGRES_USER=ir331
+      - POSTGRES_PASSWORD=ir331-pwd
+    ports:
+     - "127.0.0.1:5432:5432"
+#    volumes:
+#     - .:/code
+
+#docker run --name some-postgres -e POSTGRES_PASSWORD=mysecretpassword -d postgres
+
+

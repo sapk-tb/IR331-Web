@@ -3,6 +3,8 @@ package tb.etu.ir331.entities;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
@@ -16,6 +18,7 @@ public class Contrat implements Serializable {
     private Employe employé;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Basic
