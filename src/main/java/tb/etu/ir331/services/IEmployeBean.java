@@ -14,6 +14,9 @@ public interface IEmployeBean {
 
     Employe create(String prenom, String nom) throws Exception;
     Employe create(String prenom, String nom, Service service) throws Exception;
+    Employe create(String prenom, String nom, Service service, String type, String etat, String startDate, String endDate) throws Exception;
+    
+   
     Employe attach(int idEmp, int IdServ) throws Exception;
 
     public Employe getEmploye(int id) throws Exception;

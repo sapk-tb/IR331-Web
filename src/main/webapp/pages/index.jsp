@@ -20,8 +20,63 @@
 <div>
     <h3>Scénario</h3>
     <a class="btn btn-primary" href="?a=scenario1">Scénario 1</a>
+    <%
+        if (a != null && a.equals("scenario1")) {
+            IEmployeBean employeBean = (IEmployeBean) ServicesLocator.getInstance().getRemoteInterface("EmployeBean");
+            IServiceBean serviceBean = (IServiceBean) ServicesLocator.getInstance().getRemoteInterface("ServiceBean");
+            IContratBean contratBean = (IContratBean) ServicesLocator.getInstance().getRemoteInterface("ContratBean");
+            try {
+                result += "$ serviceBean.create('ServicePaul','open', '-1', '-1')\n";
+                Service s = serviceBean.create("ServicePaul", "open", "-1", "-1"); //No Parent, no REsp
+                result += "-> " + s.toString() + "\n";
+                result += "$ employeBean.create('Paul', 'LAVOCAT', "+s.toString()+")\n";
+                Employe e = employeBean.create("Paul", "LAVOCAT", s);
+                result += "-> " + e.toString() + "\n";
+                result += "$ contratBean.create("+e.getId()+", 'CDI', 'waitsign', '2003-07-11', '')\n";
+                Contrat c = contratBean.create((int)(long)e.getId(), "CDI", "waitsign", "2003-07-11", "");
+                result += "-> " + c.toString() + "\n";
+                result += "$ serviceBean.create('ServicePaul','open', '-1', '-1')\n";
+                s = serviceBean.setResp((int) (long) s.getId(),(int)(long) e.getId());
+                result += "-> " + s.toString() + "\n";
+            } catch (Exception ex) {
+                result += ">>> Exception : " + ex.getLocalizedMessage() + "\n";
+            }
+        }
+    %>
     <a class="btn btn-primary" href="?a=scenario2">Scénario 2</a>
+    <%
+        if (a != null && a.equals("scenario2")) {
+            IServiceBean serviceBean = (IServiceBean) ServicesLocator.getInstance().getRemoteInterface("ServiceBean");
+            try {
+                result += "$ serviceBean.create('ServicePere','open', '-1', '-1')\n";
+                Service s = serviceBean.create("ServicePere", "open", "-1", "-1"); //No Parent, no REsp
+                result += "-> " + s.toString() + "\n";
+                result += "$ serviceBean.create('ServiceFils','open', '"+s.getId()+"', '-1')\n";
+                Service f = serviceBean.create("ServiceFils", "open", ""+s.getId(), "-1"); //No Parent, no REsp
+                result += "-> " + f.toString() + "\n";
+                result += "$ serviceBean.create('ServiceSousFils','open', '"+s.getId()+"', '-1')\n";
+                Service f2 = serviceBean.create("ServiceSousFils", "open", ""+f.getId(), "-1"); //No Parent, no REsp
+                result += "-> " + f2.toString() + "\n";
+            } catch (Exception ex) {
+                result += ">>> Exception : " + ex.getLocalizedMessage() + "\n";
+            }
+        }
+    %>
     <a class="btn btn-primary" href="?a=scenario3">Scénario 3</a>
+    <%
+        if (a != null && a.equals("scenario3")) {
+            IEmployeBean employeBean = (IEmployeBean) ServicesLocator.getInstance().getRemoteInterface("EmployeBean");
+            IServiceBean serviceBean = (IServiceBean) ServicesLocator.getInstance().getRemoteInterface("ServiceBean");
+            IContratBean contratBean = (IContratBean) ServicesLocator.getInstance().getRemoteInterface("ContratBean");
+            try {
+                //result += "$ serviceBean.create('ServicePaul','open', '-1', '-1')\n";
+                //s = serviceBean.setResp((int) (long) s.getId(),(int)(long) e.getId());
+                //result += "-> " + s.toString() + "\n";
+            } catch (Exception ex) {
+                result += ">>> Exception : " + ex.getLocalizedMessage() + "\n";
+            }
+        }
+    %>
 </div>
 <div>
     <h3>Random action</h3>
