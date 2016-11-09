@@ -48,7 +48,7 @@
             try {
                 String nom = Generator.generateServiceName();
                 result += "$ serviceBean.create('" + nom + "','open')\n";
-                Service s = serviceBean.create(nom, "open");
+                Service s = serviceBean.create(nom, "open", "-1", "-1"); //No Parent, no REsp
                 result += "-> " + s.toString() + "\n";
 
             } catch (Exception ex) {

@@ -49,7 +49,7 @@ public class ContratDAO {
         return (List<Contrat>) l;
     }
 
-    public void validate(Contrat c) throws Exception {
+    private void validate(Contrat c) throws Exception {
         //TODO Un employe en devrait avoir que un contrat actif ?
         //TODO check different type
         //TODO check different etat

@@ -12,11 +12,13 @@ import tb.etu.ir331.entities.Service;
 @Remote
 public interface IServiceBean {
 
-    Service create(String name, String etat) throws Exception;
+    //Service create(String name, String etat) throws Exception;
 
-    Service create(String name, String etat, Employe responsable) throws Exception;
+    Service create(String name, String etat, Service parent, Employe responsable) throws Exception;
+    Service create(String name, String etat, String parentId, String responsableId) throws Exception;
 
     Service setResp(int IdServ, int idEmp) throws Exception;
+    Service setParent(String IdServ, String idParent) throws Exception;
 
     public Service getService(int id) throws Exception;
 

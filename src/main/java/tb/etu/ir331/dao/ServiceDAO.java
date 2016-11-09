@@ -1,6 +1,7 @@
 package tb.etu.ir331.dao;
 
 import java.util.List;
+import java.util.Objects;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import tb.etu.ir331.entities.Service;
@@ -56,11 +57,22 @@ public class ServiceDAO {
         return (List<Service>) l;
     }
 
-    public void validate(Service s) throws Exception {
+    private void validate(Service s) throws Exception {
         //TODO check different etat
         if (s.getNom() == null || "".equals(s.getNom().trim())) {
             throw new Exception("Service name is empty !");
         }
+        
+        //TODO handle loop parenting
+        Service current = s;
+        while (current.getParent() != null) {                
+            current = current.getParent();
+            if(Objects.equals(current.getId(), s.getId())){
+                //Loop detected
+                throw new Exception("Service parent loop detected !");
+            }
+        }
+        //TODO check that we are serving the original.
     }
 
     public Service update(Service s) throws Exception {

@@ -49,7 +49,7 @@ public class EmployeDAO {
         return (List<Employe>) l;
     }
 
-    public void validate(Employe e) throws Exception {
+    private void validate(Employe e) throws Exception {
         if (e.getPrenom() == null || "".equals(e.getPrenom().trim())) {
             throw new Exception("Employe prenom is empty !");
         }

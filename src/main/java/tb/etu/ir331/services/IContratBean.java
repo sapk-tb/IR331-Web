@@ -3,7 +3,6 @@ package tb.etu.ir331.services;
 import java.util.List;
 import javax.ejb.Remote;
 import tb.etu.ir331.entities.Contrat;
-import tb.etu.ir331.entities.Employe;
 
 /**
  *

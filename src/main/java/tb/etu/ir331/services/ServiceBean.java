@@ -25,20 +25,6 @@ public class ServiceBean implements IServiceBean {
     private EmployeDAO employeDAO;
 
     @Override
-    public Service create(String name, String etat) throws Exception {
-        return this.create(name, etat, null);
-    }
-
-    @Override
-    public Service create(String name, String etat, Employe responsable) throws Exception {
-        Service s = new Service();
-        s.setNom(name);
-        s.setEtat(etat);
-        s.setResponsable(responsable);
-        return serviceDAO.persist(s);
-    }
-
-    @Override
     public Service getService(int id) throws Exception {
         return serviceDAO.findById(id);
     }
@@ -64,7 +50,7 @@ public class ServiceBean implements IServiceBean {
                throw new Exception("Employe is already chief of the service : "+tmp.getNom());
             }
         }
-        */
+         */
         s.setResponsable(e);
         return serviceDAO.update(s);
     }
@@ -73,8 +59,59 @@ public class ServiceBean implements IServiceBean {
     public List<Employe> getEmpList(Service s) throws Exception {
         return employeDAO.findByServiceId(s.getId());
     }
+
     @Override
     public int getNbEmp(Service s) throws Exception {
         return employeDAO.findByServiceId(s.getId()).size();
     }
+
+    @Override
+    public Service create(String name, String etat, Service parent, Employe responsable) throws Exception {
+        Service s = new Service();
+        s.setNom(name);
+        s.setEtat(etat);
+        s.setParent(parent);
+        s.setResponsable(responsable);
+        return serviceDAO.persist(s);
+    }
+
+    @Override
+    public Service create(String name, String etat, String parentId, String responsableId) throws Exception {
+
+        Employe resp = null;
+        if (responsableId != null && !responsableId.equals("-1") && !responsableId.equals("")) {
+            resp = employeDAO.findById(new Integer(responsableId));
+        }
+        Service parent = null;
+        if (parentId != null && !parentId.equals("-1") && !parentId.equals("")) {
+            parent = serviceDAO.findById(new Integer(parentId));
+        }
+        return this.create(name, etat, parent, resp);
+    }
+    @Override
+    public Service setParent(String IdServ, String idParent) throws Exception {
+        Service s = serviceDAO.findById(new Integer(IdServ));
+        Service p = null;
+        if (idParent != null && !idParent.equals("-1") && !idParent.equals("")) {
+            p = serviceDAO.findById(new Integer(idParent));
+        }
+
+        s.setParent(p);
+        return serviceDAO.update(s);
+    }
+    /*
+    @Override
+    public Service create(String name, String etat) throws Exception {
+        return this.create(name, etat, null);
+    }
+
+    @Override
+    public Service create(String name, String etat, Employe responsable) throws Exception {
+        Service s = new Service();
+        s.setNom(name);
+        s.setEtat(etat);
+        s.setResponsable(responsable);
+        return serviceDAO.persist(s);
+    }
+     */
 }
