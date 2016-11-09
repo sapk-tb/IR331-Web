@@ -37,6 +37,7 @@ public class ServiceBean implements IServiceBean {
     @Override
     public Service setResp(int IdServ, int idEmp) throws Exception {
         Service s = serviceDAO.findById(IdServ);
+        Employe old = s.getResponsable();
         Employe e = employeDAO.findById(idEmp);
 
         //Verify if employe is in service to become chief 
@@ -52,7 +53,13 @@ public class ServiceBean implements IServiceBean {
         }
          */
         s.setResponsable(e);
-        return serviceDAO.update(s);
+        try {
+            return serviceDAO.update(s);
+        } catch (Exception ex) {
+            s.setResponsable(old); //Rollback
+            throw ex;
+            //return serviceDAO.update(s);
+        }
     }
 
     @Override
@@ -88,30 +95,22 @@ public class ServiceBean implements IServiceBean {
         }
         return this.create(name, etat, parent, resp);
     }
+
     @Override
     public Service setParent(String IdServ, String idParent) throws Exception {
         Service s = serviceDAO.findById(new Integer(IdServ));
+        Service old = s.getParent();
         Service p = null;
         if (idParent != null && !idParent.equals("-1") && !idParent.equals("")) {
             p = serviceDAO.findById(new Integer(idParent));
         }
-
         s.setParent(p);
-        return serviceDAO.update(s);
+        try {
+            return serviceDAO.update(s);
+        } catch (Exception ex) {
+            s.setParent(old); //Rollback
+            throw ex;
+            //return serviceDAO.update(s);
+        }
     }
-    /*
-    @Override
-    public Service create(String name, String etat) throws Exception {
-        return this.create(name, etat, null);
-    }
-
-    @Override
-    public Service create(String name, String etat, Employe responsable) throws Exception {
-        Service s = new Service();
-        s.setNom(name);
-        s.setEtat(etat);
-        s.setResponsable(responsable);
-        return serviceDAO.persist(s);
-    }
-     */
 }

@@ -74,7 +74,15 @@ public class Service implements Serializable {
 
     @Override
     public String toString() {
-        return "Service{" + "id=" + id + ", nom=" + nom + ", etat=" + etat + ", responsable=" + responsable.getId() + ", parent=" + parent + '}';
+        String resp = "null";
+        String par = "null";
+        if(responsable != null){
+            resp = ""+responsable.getId();
+        }
+        if(parent != null){
+            par = ""+parent.getId();
+        }
+        return "Service{" + "id=" + id + ", nom=" + nom + ", etat=" + etat + ", responsable=" + resp + ", parent=" + par + '}';
     }
 
 }

@@ -63,7 +63,7 @@ public class ServiceDAO {
             throw new Exception("Service name is empty !");
         }
         
-        //TODO handle loop parenting
+        //Handle loop parenting
         Service current = s;
         while (current.getParent() != null) {                
             current = current.getParent();
@@ -72,7 +72,6 @@ public class ServiceDAO {
                 throw new Exception("Service parent loop detected !");
             }
         }
-        //TODO check that we are serving the original.
     }
 
     public Service update(Service s) throws Exception {

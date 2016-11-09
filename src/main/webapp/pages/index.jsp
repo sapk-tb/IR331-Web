@@ -47,7 +47,7 @@
             IServiceBean serviceBean = (IServiceBean) ServicesLocator.getInstance().getRemoteInterface("ServiceBean");
             try {
                 String nom = Generator.generateServiceName();
-                result += "$ serviceBean.create('" + nom + "','open')\n";
+                result += "$ serviceBean.create('" + nom + "','open', '-1', '-1')\n";
                 Service s = serviceBean.create(nom, "open", "-1", "-1"); //No Parent, no REsp
                 result += "-> " + s.toString() + "\n";
 

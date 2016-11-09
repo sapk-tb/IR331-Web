@@ -95,7 +95,15 @@ public class Employe implements Serializable {
 
     @Override
     public String toString() {
-        return "Employe{" + "id=" + id + ", etat=" + etat + ", details=" + details + ", nom=" + nom + ", prenom=" + prenom + ", contrat=" + contrat.getId() + ", service=" + service.getId() + '}';
+        String cont = "null";
+        String serv = "null";
+        if(contrat != null){
+            cont = ""+contrat.getId();
+        }
+        if(service != null){
+            serv = ""+service.getId();
+        }
+        return "Employe{" + "id=" + id + ", etat=" + etat + ", details=" + details + ", nom=" + nom + ", prenom=" + prenom + ", contrat=" +  cont + ", service=" + serv + '}';
     }
 
 }

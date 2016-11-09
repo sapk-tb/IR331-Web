@@ -27,7 +27,7 @@ public class Generator {
         */
     }
     public static String generateServiceName() {
-        String[] source = {"Service1","Service2","Service3","Service4","Service5","Service6"};
+        String[] source = {"Service1","Service2","Service3","Service4","Service5","Service6","Service7","Service8"};
         return (String) chooseFrom(source);
     }
     public static String generatePrenom() {
